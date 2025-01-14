@@ -1,0 +1,9 @@
+<Context>
+
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+    <!-- Configuración para utilizar Redis como administrador de sesiones -->
+                <Valve className="tomcat.request.session.redis.SessionHandlerValve" />
+                <Manager className="tomcat.request.session.redis.SessionManager" />
+</Context>
