@@ -1,0 +1,45 @@
+version: "3.2"
+services:
+  redis:
+    container_name: redis-tomcat
+    hostname: redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      default:
+        aliases:
+          - redis
+  haproxy:
+    container_name: haproxy
+    hostname: haproxy
+    image: haproxy:latest
+    ports:
+      - "80:80"
+      - "9999:9999"
+    restart: always
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - ./run/haproxy:/run/haproxy
+      - ./dev/log:/dev/log
+    networks:
+      default:
+        aliases:
+          - haproxy
+  app:
+    container_name: tomcat-1
+    hostname: app
+    image: openjdk:7u91-jdk-alpine
+    ports:
+      - 8080:8080
+    volumes:
+      - ./redis-data-cache.properties:/opt/tomcat/conf/redis-data-cache.properties
+      - ./context.xml:/opt/tomcat/conf/context.xml
+      - ./commons-pool2-2.6.2.jar:/opt/tomcat/lib/commons-pool2-2.6.2.jar
+      - ./jedis-3.0.1.jar:/opt/tomcat/lib/jedis-3.0.1.jar
+      - ./slf4j-api-1.7.26.jar:/opt/tomcat/lib/slf4j-api-1.7.26.jar
+      - ./tomcat-cluster-redis-session-manager-4.0.jar:/opt/tomcat/lib/tomcat-cluster-redis-session-manager-4.0.jar
+networks:
+    default:
+        driver: bridge
