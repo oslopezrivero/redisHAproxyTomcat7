@@ -77,55 +77,55 @@ Antes de comenzar, asegúrate de tener lo siguiente:
     *  Crea los archivos necesarios para la gestión de sesiones de Redis en Tomcat. Por ejemplo:
         -   `redis-data-cache.properties`:
             ```
-# - ${ENV_VARIABLE_NAME}
-
-#- redis hosts. ex: 127.0.0.1:6379, 127.0.0.2:6379, 127.0.0.2:6380, ....
-redis.hosts=redis-container:6379
-
-#- redis password.
-redis.password=Password
-
-#- set true to enable redis cluster mode. (default value: false)
-redis.cluster.enabled=false
-
-#- set true to enable redis sentinel mode. (default value: false)
-redis.sentinel.enabled=false
-#- redis sentinel master name. (default value: mymaster)
-redis.sentinel.master=mymaster
-
-#- redis database. (default value: 0)
-#- redis.database=0
-
-#- redis connection timeout. (default value: 2000 ms)
-#- redis.timeout=2000
-
-#- enable redis and standard session mode. (default value: false)
-#- If enabled,
-#- Must be enabled sticky session in your load balancer configuration. Else this manager may not return the updated session values.
-#- Session values are stored in local jvm and redis.
-#- If redis is down/not responding, requests uses jvm stored session values to process user requests. Redis comes back the values will be synced.
-lb.sticky-session.enabled=false
-
-#- session persistent policies. (default value: DEFAULT) ex: DEFAULT, SAVE_ON_CHANGE
-# policies - DEFAULT, SAVE_ON_CHANGE, ALWAYS_SAVE_AFTER_REQUEST
-# SAVE_ON_CHANGE: every time session.setAttribute() or session.removeAttribute() is called the session will be saved.
-# ALWAYS_SAVE_AFTER_REQUEST: force saving after every request, regardless of whether or not the manager has detected changes to the session.
-session.persistent.policies=DEFAULT
- ```
-#- single-sign-on session timeout. (default value: 0 ms (-infinite))
-redis.sso.timeout=0
-            ```
-        -   `context.xml`:
-            ```xml
-            <Context>
-    <!-- Default set of monitored resources -->
-    <WatchedResource>WEB-INF/web.xml</WatchedResource>
-
-    <!-- Configuración para utilizar Redis como administrador de sesiones -->
-                <Valve className="tomcat.request.session.redis.SessionHandlerValve" />
-                <Manager className="tomcat.request.session.redis.SessionManager" />
-            </Context>
-            ```
+    # - ${ENV_VARIABLE_NAME}
+    
+    #- redis hosts. ex: 127.0.0.1:6379, 127.0.0.2:6379, 127.0.0.2:6380, ....
+    redis.hosts=redis-container:6379
+    
+    #- redis password.
+    redis.password=Password
+    
+    #- set true to enable redis cluster mode. (default value: false)
+    redis.cluster.enabled=false
+    
+    #- set true to enable redis sentinel mode. (default value: false)
+    redis.sentinel.enabled=false
+    #- redis sentinel master name. (default value: mymaster)
+    redis.sentinel.master=mymaster
+    
+    #- redis database. (default value: 0)
+    #- redis.database=0
+    
+    #- redis connection timeout. (default value: 2000 ms)
+    #- redis.timeout=2000
+    
+    #- enable redis and standard session mode. (default value: false)
+    #- If enabled,
+    #- Must be enabled sticky session in your load balancer configuration. Else this manager may not return the updated session values.
+    #- Session values are stored in local jvm and redis.
+    #- If redis is down/not responding, requests uses jvm stored session values to process user requests. Redis comes back the values will be synced.
+    lb.sticky-session.enabled=false
+    
+    #- session persistent policies. (default value: DEFAULT) ex: DEFAULT, SAVE_ON_CHANGE
+    # policies - DEFAULT, SAVE_ON_CHANGE, ALWAYS_SAVE_AFTER_REQUEST
+    # SAVE_ON_CHANGE: every time session.setAttribute() or session.removeAttribute() is called the session will be saved.
+    # ALWAYS_SAVE_AFTER_REQUEST: force saving after every request, regardless of whether or not the manager has detected changes to the session.
+    session.persistent.policies=DEFAULT
+     ```
+    #- single-sign-on session timeout. (default value: 0 ms (-infinite))
+    redis.sso.timeout=0
+                ```
+            -   `context.xml`:
+                ```xml
+                <Context>
+        <!-- Default set of monitored resources -->
+        <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    
+        <!-- Configuración para utilizar Redis como administrador de sesiones -->
+                    <Valve className="tomcat.request.session.redis.SessionHandlerValve" />
+                    <Manager className="tomcat.request.session.redis.SessionManager" />
+                </Context>
+                ```
     *  Asegúrate que estos archivos serán montados en el contenedor Tomcat utilizando el `docker-compose.yml`.
 3.  **Librerias de gestión de sesión:** Asegúrate de tener las librerias necesarias para que tomcat use redis para la gestión de sesión, entre ellas : `jedis-*.jar`, `tomcat-redis-session-manager-*.jar`, `commons-pool2-*.jar`, `slf4j-api-*.jar`.
 ### 2. Despliegue con Docker Compose
