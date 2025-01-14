@@ -90,20 +90,20 @@ redis.cluster.enabled=false
 
 #- set true to enable redis sentinel mode. (default value: false)
 redis.sentinel.enabled=false
-# redis sentinel master name. (default value: mymaster)
+#- redis sentinel master name. (default value: mymaster)
 redis.sentinel.master=mymaster
 
 #- redis database. (default value: 0)
-#redis.database=0
+#- redis.database=0
 
 #- redis connection timeout. (default value: 2000 ms)
-#redis.timeout=2000
+#- redis.timeout=2000
 
 #- enable redis and standard session mode. (default value: false)
-# If enabled,
-#   1. Must be enabled sticky session in your load balancer configuration. Else this manager may not return the updated session values.
-#   2. Session values are stored in local jvm and redis.
-#   3. If redis is down/not responding, requests uses jvm stored session values to process user requests. Redis comes back the values will be synced.
+#- If enabled,
+#-   1. Must be enabled sticky session in your load balancer configuration. Else this manager may not return the updated session values.
+#-   2. Session values are stored in local jvm and redis.
+#-   3. If redis is down/not responding, requests uses jvm stored session values to process user requests. Redis comes back the values will be synced.
 lb.sticky-session.enabled=false
 
 #- session persistent policies. (default value: DEFAULT) ex: DEFAULT, SAVE_ON_CHANGE
