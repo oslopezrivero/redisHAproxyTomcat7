@@ -101,15 +101,15 @@ redis.sentinel.master=mymaster
 
 #- enable redis and standard session mode. (default value: false)
 #- If enabled,
-#-   1. Must be enabled sticky session in your load balancer configuration. Else this manager may not return the updated session values.
-#-   2. Session values are stored in local jvm and redis.
-#-   3. If redis is down/not responding, requests uses jvm stored session values to process user requests. Redis comes back the values will be synced.
+#- Must be enabled sticky session in your load balancer configuration. Else this manager may not return the updated session values.
+#- Session values are stored in local jvm and redis.
+#- If redis is down/not responding, requests uses jvm stored session values to process user requests. Redis comes back the values will be synced.
 lb.sticky-session.enabled=false
 
 #- session persistent policies. (default value: DEFAULT) ex: DEFAULT, SAVE_ON_CHANGE
 # policies - DEFAULT, SAVE_ON_CHANGE, ALWAYS_SAVE_AFTER_REQUEST
-#   1. SAVE_ON_CHANGE: every time session.setAttribute() or session.removeAttribute() is called the session will be saved.
-#   2. ALWAYS_SAVE_AFTER_REQUEST: force saving after every request, regardless of whether or not the manager has detected changes to the session.
+# SAVE_ON_CHANGE: every time session.setAttribute() or session.removeAttribute() is called the session will be saved.
+# ALWAYS_SAVE_AFTER_REQUEST: force saving after every request, regardless of whether or not the manager has detected changes to the session.
 session.persistent.policies=DEFAULT
 
 #- single-sign-on session timeout. (default value: 0 ms (-infinite))
