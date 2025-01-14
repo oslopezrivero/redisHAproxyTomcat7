@@ -111,7 +111,7 @@ lb.sticky-session.enabled=false
 # SAVE_ON_CHANGE: every time session.setAttribute() or session.removeAttribute() is called the session will be saved.
 # ALWAYS_SAVE_AFTER_REQUEST: force saving after every request, regardless of whether or not the manager has detected changes to the session.
 session.persistent.policies=DEFAULT
-
+ ```
 #- single-sign-on session timeout. (default value: 0 ms (-infinite))
 redis.sso.timeout=0
             ```
